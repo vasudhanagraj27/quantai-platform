@@ -1,10 +1,8 @@
 import os
 import tempfile
 from typing import List
-
 from pypdf import PdfReader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_core.documents import Document
+from modules.rag.retriever import Document
 
 CHUNK_SIZE = 800
 CHUNK_OVERLAP = 100
@@ -43,9 +41,16 @@ def load_documents(uploaded_files) -> List[Document]:
 
 
 def split_documents(docs: List[Document]) -> List[Document]:
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=CHUNK_SIZE,
-        chunk_overlap=CHUNK_OVERLAP,
-        separators=["\n\n", "\n", ". ", " ", ""],
-    )
-    return splitter.split_documents(docs)
+    chunks = []
+    for doc in docs:
+        text = doc.page_content
+        start = 0
+        while start < len(text):
+            end = start + CHUNK_SIZE
+            chunk_text = text[start:end]
+            chunks.append(Document(
+                page_content=chunk_text,
+                metadata=doc.metadata.copy()
+            ))
+            start += CHUNK_SIZE - CHUNK_OVERLAP
+    return chunks

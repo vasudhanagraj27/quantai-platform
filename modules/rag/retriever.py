@@ -3,7 +3,6 @@ import pickle
 from typing import List
 
 from rank_bm25 import BM25Okapi
-from langchain_core.documents import Document
 
 DOCS_PATH = os.path.join(os.path.dirname(__file__), "../../stored_docs.pkl")
 
@@ -12,21 +11,27 @@ def _tokenize(text: str) -> list:
     return text.lower().split()
 
 
-def add_documents(docs: List[Document], **kwargs):
+class Document:
+    def __init__(self, page_content: str, metadata: dict):
+        self.page_content = page_content
+        self.metadata = metadata
+
+
+def add_documents(docs, **kwargs):
     existing = _load_docs()
-    all_docs = existing + docs
+    all_docs = existing + list(docs)
     with open(DOCS_PATH, "wb") as f:
         pickle.dump(all_docs, f)
 
 
-def _load_docs() -> List[Document]:
+def _load_docs():
     if os.path.exists(DOCS_PATH):
         with open(DOCS_PATH, "rb") as f:
             return pickle.load(f)
     return []
 
 
-def similarity_search(query: str, k: int = 4, **kwargs) -> List[Document]:
+def similarity_search(query: str, k: int = 4, **kwargs):
     docs = _load_docs()
     if not docs:
         return []

@@ -7,7 +7,7 @@ import json
 from datetime import datetime
 
 from modules.rag.document_processor import load_documents, split_documents
-from modules.rag.retriever import add_documents, clear_collection
+from modules.rag.retriever import add_documents, clear_collection, Document
 from modules.rag.qa_chain import answer_question
 from utils.helpers import get_groq_api_key, format_sources
 from database.db import get_connection, init_db
