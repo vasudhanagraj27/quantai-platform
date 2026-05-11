@@ -1,0 +1,16 @@
+name: quantai
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - streamlit==1.40.2
+    - groq
+    - pypdf
+    - rank-bm25
+    - python-dotenv
+    - requests
+    - feedparser
+    - beautifulsoup4
