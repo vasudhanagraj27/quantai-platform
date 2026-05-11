@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+chroma_db/
+*.sqlite
+.streamlit/secrets.toml
+venv/
+Financial Report Documents/
+QuantAI_Interview_Guide.html
+QuantAI_Demo_Playbook.html
+QuantAI_Project_Report.html
+QuantAI_Project_Report.tex
