@@ -3,11 +3,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 import streamlit as st
-from database.db import init_db
-from database.seed import seed_demo_prompts
-
-init_db()
-seed_demo_prompts()
 
 st.set_page_config(
     page_title="QuantAI — AI Enablement Platform",
@@ -15,24 +10,24 @@ st.set_page_config(
     layout="wide",
 )
 
+try:
+    from database.db import init_db
+    from database.seed import seed_demo_prompts
+    init_db()
+    seed_demo_prompts()
+except Exception as e:
+    st.error(f"Startup error: {e}")
+
 st.title("QuantAI — Internal AI Enablement Platform")
-st.caption("Built for Quantifi | Powered by Groq + Llama 3.3 + BM25")
-
-st.markdown("""
----
-### What is QuantAI?
-
-QuantAI is an internal AI acceleration platform designed for financial teams at Quantifi.
-It operationalizes AI tools across three core workflows:
-""")
+st.caption("Built for Quantifi | Powered by Groq + Llama 3.3")
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
     st.markdown("""
     ### Document Intelligence
-    Upload risk reports, regulatory docs, or market research.
-    Ask natural language questions and get grounded answers with cited sources.
+    Upload financial documents and ask questions in plain English.
+    Answers are grounded with page-level source citations.
 
     **Powered by:** BM25 Retrieval · Groq · Llama 3.3
     """)
@@ -51,16 +46,12 @@ with col2:
 with col3:
     st.markdown("""
     ### AI Digest Agent
-    A daily agent that fetches, filters, and summarizes the latest AI tool updates
-    relevant to your team — so you stay current without the noise.
+    Fetches, filters, and summarizes the latest AI tool updates
+    relevant to your team — automatically.
 
     **Powered by:** Groq · RSS Feeds
     """)
     st.page_link("pages/3_AI_Digest.py", label="Open AI Digest →")
 
 st.divider()
-st.markdown("""
-**Tech Stack:** Python · Groq API · BM25 · pypdf · Streamlit · SQLite
-
-*Built by Vasudha Siddapura Nagraj*
-""")
+st.markdown("**Built by Vasudha Siddapura Nagraj**")
