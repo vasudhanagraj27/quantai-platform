@@ -4,7 +4,7 @@ from typing import List
 
 from rank_bm25 import BM25Okapi
 
-DOCS_PATH = os.path.join(os.path.dirname(__file__), "../../stored_docs.pkl")
+DOCS_PATH = "/tmp/stored_docs.pkl"
 
 
 def _tokenize(text: str) -> list:

@@ -3,7 +3,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
-import pandas as pd
 from datetime import datetime
 
 from modules.ai_digest.digest_agent import run_digest
@@ -169,17 +168,10 @@ with tab_raw:
         )
         filtered_raw = [a for a in raw if a["source"] in source_filter]
 
-        df = pd.DataFrame(filtered_raw)[["published", "source", "title", "url"]]
-        df.columns = ["Published", "Source", "Title", "URL"]
-
-        st.dataframe(
-            df,
-            use_container_width=True,
-            hide_index=True,
-            column_config={
-                "URL": st.column_config.LinkColumn("URL", display_text="Open ↗"),
-            },
-        )
+        rows = [{"Published": a["published"], "Source": a["source"],
+                  "Title": a["title"], "URL": a["url"]} for a in filtered_raw]
+        st.dataframe(rows, use_container_width=True,
+                     column_config={"URL": st.column_config.LinkColumn("URL", display_text="Open ↗")})
     else:
         st.info("Click 'Fetch Raw Articles' to see the live feed.")
 

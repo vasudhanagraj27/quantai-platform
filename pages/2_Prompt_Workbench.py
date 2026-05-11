@@ -4,7 +4,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import json
 import streamlit as st
-import pandas as pd
 
 from modules.prompt_workbench.prompt_manager import (
     create_prompt, get_all_prompts, get_prompt,
@@ -259,13 +258,12 @@ with tab_history:
     if not all_runs:
         st.info("No runs yet. Test a prompt to see history here.")
     else:
-        df = pd.DataFrame(all_runs)
-        df = df[["ran_at", "prompt_name", "use_case", "model", "latency_ms", "rating"]]
-        df.columns = ["Ran At", "Prompt", "Use Case", "Model", "Latency (ms)", "Rating"]
-        df["Rating"] = df["Rating"].apply(lambda r: "★" * int(r) if r else "—")
-        st.dataframe(df, use_container_width=True, hide_index=True)
+        rows = [{"Ran At": r["ran_at"], "Prompt": r["prompt_name"], "Use Case": r["use_case"],
+                  "Model": r["model"], "Latency (ms)": r["latency_ms"],
+                  "Rating": "★" * int(r["rating"]) if r["rating"] else "—"} for r in all_runs]
+        st.dataframe(rows, use_container_width=True)
 
-        avg_latency = pd.DataFrame(all_runs)["latency_ms"].mean()
+        avg_latency = sum(r["latency_ms"] for r in all_runs) / len(all_runs)
         rated = [r for r in all_runs if r["rating"]]
         avg_rating = sum(r["rating"] for r in rated) / len(rated) if rated else 0
 

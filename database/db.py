@@ -2,7 +2,7 @@ import sqlite3
 import os
 from pathlib import Path
 
-DB_PATH = str(Path(__file__).parent / "quantai.sqlite")
+DB_PATH = "/tmp/quantai.sqlite"
 
 
 def get_connection():
