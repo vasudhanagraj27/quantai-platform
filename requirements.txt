@@ -1,4 +1,5 @@
-streamlit
+streamlit==1.40.2
+starlette<1.0.0
 groq
 pypdf
 rank-bm25
