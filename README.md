@@ -4,6 +4,7 @@
 > Operationalizes AI tools across document intelligence, prompt management, and automated AI news briefing.
 
 **Live App:** [quantai-platform.streamlit.app](https://quantai-platform.streamlit.app)
+
 &nbsp;|&nbsp;
 **Built with:** Python · Groq · BM25 · SQLite · Streamlit
 
