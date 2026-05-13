@@ -1,6 +1,6 @@
 # QuantAI — Internal AI Enablement Platform
 
-> A production-ready, three-module AI platform built for financial teams at Quantifi Solutions.
+> A production-ready, three-module AI platform built for financial teams.
 > Operationalizes AI tools across document intelligence, prompt management, and automated AI news briefing.
 
 **Live App:** [quantai-platform.streamlit.app](https://quantai-platform.streamlit.app)
