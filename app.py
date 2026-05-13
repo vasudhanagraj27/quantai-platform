@@ -22,7 +22,7 @@ st.markdown("""
 ---
 ### What is QuantAI?
 
-QuantAI is an internal AI acceleration platform designed for financial teams at Quantifi.
+QuantAI is an internal AI acceleration platform designed for financial teams,
 It operationalizes AI tools across three core workflows:
 """)
 
